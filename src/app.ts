@@ -1,10 +1,10 @@
-const AppDataSource = require('./datasource/datasource')
-const Person = require('./entity/Person.js')
-const fs = require("fs");
-const { marked } = require('marked');
-const express = require('express')
-const bodyParser = require('body-parser')
-const app = express()
+import {AppDataSource} from './datasource/datasource'
+import {Person} from "./entity/Person";
+import fs from 'fs';
+import express, { Express, Request, Response } from 'express';
+import bodyParser from 'body-parser'
+
+const app: Express = express();
 const port = 3000
 
 app.use(bodyParser.json())
@@ -14,7 +14,8 @@ const personRepository = AppDataSource.getRepository(Person)
 app.get('/', (req, res) => {
     let readme = './README.md';
     let output = fs.readFileSync(readme, 'utf8');
-    res.send(marked(output.toString()));
+    //res.send(marked(output.toString()));
+    res.send()
 })
 
 app.get('/persons', async (req, res) => {
@@ -27,5 +28,5 @@ app.get('/persons', async (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`App listening on port ${port}`)
+    console.log(`⚡️ Server listening on port ${port}`)
 })
